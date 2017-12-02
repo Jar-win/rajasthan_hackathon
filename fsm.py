@@ -45,4 +45,5 @@ def get_speed_stat(curr_lat,curr_long,dest_lat,dest_long):
     while(speed>SPEED_LIMIT):
         time_left = time_left + 40
         speed == total_dist/time_left
+    return {'speed':speed}
     

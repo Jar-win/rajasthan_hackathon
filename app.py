@@ -7,9 +7,8 @@ app = Flask(__name__)
 
 @app.route('/api/v1.0/<float:lat>@<float:longt>|<float:dlat>@<float:dlongt>', methods=['GET'])
 def get_coordinate(lat, longt, dlat, dlongt):
-    """
     import direction_handler
-    #import fsm
+    import fsm
     direction_json = direction_handler.get_direction_json(lat, longt, dlat, dlongt)
     for step in direction_json['legs'][0]['steps']:
       try:
@@ -17,11 +16,11 @@ def get_coordinate(lat, longt, dlat, dlongt):
             continue
         else:
             intersection_lat, intersection_lng = step['start_location']['lat'], step['start_location']['lng']
-            get_speed_stat(step)
+            speed = fsm.get_speed_stat(intersection_lat, intersection_lng)
+            return jsonify(speed)
         
       except (KeyError, IndexError) as e:
             continue
-    """
     random_speed = random.randint(5,80)
     return jsonify({'speed': random_speed, "callback_time":random_speed})
 
