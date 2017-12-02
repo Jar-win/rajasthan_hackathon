@@ -9,12 +9,16 @@ app = Flask(__name__)
 def get_coordinate(lat, longt, dlat, dlongt):
     """
     import direction_handler
+    #import fsm
     direction_json = direction_handler.get_direction_json(lat, longt, dlat, dlongt)
     for step in direction_json['legs'][0]['steps']:
       try:
         if step['maneuver'] == 'turn-left' or step['maneuver'] == 'turn-slight-left':
             continue
-        get_speed_stat(step)
+        else:
+            intersection_lat, intersection_lng = step['start_location']['lat'], step['start_location']['lng']
+            get_speed_stat(step)
+        
       except (KeyError, IndexError) as e:
             continue
     """
