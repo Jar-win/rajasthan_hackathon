@@ -10,13 +10,13 @@ def get_coordinate(lat, longt, dlat, dlongt):
     import direction_handler
     import fsm
     direction_json = direction_handler.get_direction_json(lat, longt, dlat, dlongt)
-    for step in direction_json['legs'][0]['steps']:
+    for step in direction_json[0]['legs'][0]['steps']:
       try:
         if step['maneuver'] == 'turn-left' or step['maneuver'] == 'turn-slight-left':
             continue
         else:
             intersection_lat, intersection_lng = step['start_location']['lat'], step['start_location']['lng']
-            speed = fsm.get_speed_stat(intersection_lat, intersection_lng)
+            speed = fsm.get_speed_stat(lat, longt, intersection_lat, intersection_lng)
             return jsonify(speed)
         
       except (KeyError, IndexError) as e:
